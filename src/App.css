@@ -1,0 +1,10 @@
+body{
+  background-color: #c3e0ed;
+}
+
+.task-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* Adjust minmax value as needed */
+  gap: 16px; /* Adjust gap between tasks */
+  padding: 16px; /* Optional padding */
+}
