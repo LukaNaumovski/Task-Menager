@@ -1,10 +1,80 @@
-body{
-  background-color: #c3e0ed;
+* {
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  font-style: normal;
+  margin: 0.2rem;
 }
 
-.task-list{
+body {
+  background-color: #c3e0ed;
+  height: 100vh;
+}
+
+.task-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); /* Adjust minmax value as needed */
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(400px, 1fr)
+  ); /* Adjust minmax value as needed */
   gap: 16px; /* Adjust gap between tasks */
   padding: 16px; /* Optional padding */
+}
+.App h1 {
+  text-align: left;
+  padding-left: 16px;
+}
+.layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  height: auto;
+}
+
+aside {
+  height: 100vh;
+  background-color: #d4e9f3;
+  display: flex;
+  flex-direction: column;
+  gap: 40%;
+  position: relative;
+}
+.aside-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.aside-content div {
+  border: 1px solid white;
+  border-radius: 5%;
+  width: 90%;
+  text-align: center;
+  padding: 0.3rem 0;
+  display: flex;
+  align-items: center;
+}
+.aside-content div:hover {
+  background-color: #3498db; /* Soft blue for the button */
+  color: white; /* White text for contrast */
+  border: none;
+  /* border-radius: 8px;  */
+  /* padding: 10px 20px; */
+  /* font-size: 12px; */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.aside-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  padding: 1rem 0;
 }

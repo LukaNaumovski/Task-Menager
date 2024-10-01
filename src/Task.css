@@ -1,10 +1,61 @@
-.task{
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    border-radius: 3%;
-    text-align: center;
-    overflow-wrap: break-word;
-    display: flex;
-    flex-direction: column;
-    background-color: white;
+.task {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding: 2rem;
+  border-radius: 2%;
+  text-align: center;
+  overflow-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+.date {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.done {
+  text-decoration: line-through;
+  color: rgba(128, 128, 128, 0.327);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  gap: 3px;
+}
+
+button {
+  background-color: #3498db; /* Soft blue for the button */
+  color: white; /* White text for contrast */
+  border: none;
+  border-radius: 8px; /* Rounded corners */
+  padding: 10px 20px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Hover effect */
+button:hover {
+  background-color: #2980b9; /* Darker blue on hover */
+  transform: translateY(-2px); /* Lift effect */
+}
+
+/* Focused state */
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.4); /* Soft focus ring */
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 100%;
 }
