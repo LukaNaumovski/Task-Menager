@@ -2,12 +2,54 @@
   font-family: "Poppins", sans-serif;
   font-weight: bold;
   font-style: normal;
-  margin: 0.2rem;
 }
 
 body {
   background-color: #c3e0ed;
   height: 100vh;
+}
+
+.login-container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login {
+  background-color: #ffffff;
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 3rem 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10%;
+  border-radius: 2%;
+}
+.username {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5%;
+}
+.login label {
+  font-weight: 500;
+  font-size: 18px;
+}
+.login input {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid black;
+  padding: 2%;
+  font-size: 16px;
+  font-weight: 500;
+}
+.login input:active {
+  outline: none;
+}
+.login button {
+  border-radius: 100%;
+  background-color: #3498db;
+  color: black;
+  padding: 10px 12px;
 }
 
 .task-list {
@@ -18,24 +60,28 @@ body {
   ); /* Adjust minmax value as needed */
   gap: 16px; /* Adjust gap between tasks */
   padding: 16px; /* Optional padding */
+  grid-auto-rows: 1fr;
 }
-.App h1 {
+.App h2 {
   text-align: left;
   padding-left: 16px;
 }
 .layout {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  height: auto;
+  grid-template-columns: auto 1fr;
 }
 
 aside {
+  box-sizing: border-box;
   height: 100vh;
   background-color: #d4e9f3;
   display: flex;
   flex-direction: column;
-  gap: 40%;
-  position: relative;
+  gap: 5%;
+  padding: 5px 1em;
+  position: sticky;
+  top: 0;
+  align-self: start;
 }
 .aside-content {
   width: 100%;
@@ -44,15 +90,16 @@ aside {
   justify-content: center;
   align-items: center;
   gap: 1rem;
+  height: 100%;
 }
 .aside-content div {
-  border: 1px solid white;
-  border-radius: 5%;
-  width: 90%;
+  /* border: 1px solid white; */
+  width: 100%;
   text-align: center;
   padding: 0.3rem 0;
   display: flex;
   align-items: center;
+  font-weight: 500;
 }
 .aside-content div:hover {
   background-color: #3498db; /* Soft blue for the button */

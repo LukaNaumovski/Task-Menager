@@ -8,10 +8,22 @@
   flex-direction: column;
   background-color: white;
 }
+.task p {
+  font-weight: 500;
+}
 .date {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  color: gray;
+  font-size: 14px;
+}
+.date div {
+  display: flex;
+  align-items: center;
+}
+.date p {
+  text-align: center;
 }
 .done {
   text-decoration: line-through;

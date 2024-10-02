@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../src/Task.css";
 import MySVGComponent from "./svg/Calendar";
 import { motion } from "framer-motion";
-import { s } from "framer-motion/client";
 import Edit from "./svg/Edit";
 import Delete from "./svg/Delete";
 import Clock from "./svg/Clock";
@@ -20,24 +19,32 @@ function Task(props) {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{}}
+    <div
       className="task"
       key={props.id}
       onMouseEnter={handleIsHovered}
       onMouseLeave={handleIsHovered}
     >
       <h3 className={isChecked && "done"}>{props.title.toUpperCase()}</h3>
+      <hr style={{ width: "100%" }}></hr>
       <p style={{ color: `${isChecked ? "gray" : "black"}` }}>
         {props.description}
       </p>
-      <p className="date">
-        <MySVGComponent></MySVGComponent>
-        {props.date} <Clock></Clock>
-        {props.time}
-      </p>
+      <div className="date">
+        <div>
+          <p>
+            <MySVGComponent></MySVGComponent>
+          </p>
+          <p>{props.date}</p>
+        </div>
+
+        <div>
+          <p>
+            <Clock></Clock>
+          </p>
+          <p>{props.time}</p>
+        </div>
+      </div>
 
       <div className="footer">
         <input
@@ -50,10 +57,20 @@ function Task(props) {
         <motion.div
           className="buttons"
           initial={{ opacity: 0, y: -5 }}
-          animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : -5 }}
+          animate={{
+            opacity: isHovered && !isChecked ? 1 : 0,
+            y: isHovered && !isChecked ? 0 : -5,
+          }}
           transition={{ stiffness: 540, damping: 20, type: "spring" }}
         >
-          <button className="edit">
+          <button
+            onClick={() => {
+              props.toggleModal();
+              props.handleClickedTaskId(props.id);
+              console.log(props.id);
+            }}
+            className="edit"
+          >
             <Edit></Edit>
           </button>
           <button onClick={() => props.onDelete(props.id)} className="delete">
@@ -61,7 +78,7 @@ function Task(props) {
           </button>
         </motion.div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

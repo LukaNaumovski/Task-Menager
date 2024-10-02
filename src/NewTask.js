@@ -25,6 +25,7 @@ function NewTask(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!title || !description || !date || !time) return;
     const newId = uuidv4(); // Generate unique ID
     props.handleAddTask({
       id: newId,
