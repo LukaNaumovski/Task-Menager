@@ -33,6 +33,7 @@ function NewTask(props) {
       description: description,
       date: date,
       time: time,
+      isChecked: false,
     });
     props.clickFalse();
   }

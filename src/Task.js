@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../src/Task.css";
 import MySVGComponent from "./svg/Calendar";
 import { motion } from "framer-motion";
@@ -7,7 +7,7 @@ import Delete from "./svg/Delete";
 import Clock from "./svg/Clock";
 
 function Task(props) {
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(props.isChecked);
   const [isHovered, setIsHovered] = useState(false);
 
   function handleIsHovered() {
@@ -17,6 +17,20 @@ function Task(props) {
   function handleCheckboxOnChange(e) {
     setIsChecked(e.target.checked);
   }
+
+  useEffect(() => {
+    if (isChecked) {
+      props.addCompletedTask(props.id);
+      props.handleIsChecked(props.id, true);
+      props.onDelete(props.id);
+    } else {
+      props.removeCompletedTask(props.id);
+      props.handleIsChecked(props.id, false);
+    }
+
+    console.log("ALL: ", props.tasksArray);
+    console.log("COMPLETED: ", props.completedTasksArray);
+  }, [isChecked]);
 
   return (
     <div

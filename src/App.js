@@ -10,10 +10,33 @@ import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 import Login from "./svg/Login";
 import Modal from "./Modal";
+import { Pie } from "react-chartjs-2";
+import PieChart from "./Pie";
 
 function App() {
   //STATES
   const [tasks, setTasks] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState([]);
+
+  const addCompletedTask = (id) => {
+    const completedTask = tasks.find((task) => task.id === id);
+
+    setCompletedTasks([...completedTasks, completedTask]);
+  };
+  const removeCompletedTask = (id) => {
+    const newCompletedTasks = completedTasks.filter((task) => task.id !== id);
+    setCompletedTasks(newCompletedTasks);
+  };
+
+  const handleIsChecked = (id, value) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id
+          ? { ...task, isChecked: value } // Return a new task object with updated isChecked
+          : task
+      )
+    );
+  };
 
   const [page, setPage] = useState("mytasks");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -148,6 +171,8 @@ function App() {
                   {tasks.map((task) => (
                     <motion.div key={task.id} variants={item}>
                       <Task
+                        isChecked={task.isChecked}
+                        tasksArray={tasks}
                         title={task.title}
                         description={task.description}
                         date={task.date}
@@ -159,6 +184,10 @@ function App() {
                         toggleModal={toggleModal}
                         handleClickedTaskId={handleClickedTaskId}
                         taskId={task.id}
+                        addCompletedTask={addCompletedTask}
+                        removeCompletedTask={removeCompletedTask}
+                        completedTasksArray={completedTasks}
+                        handleIsChecked={handleIsChecked}
                       />
                     </motion.div>
                   ))}
@@ -177,24 +206,37 @@ function App() {
           )}
 
           {/* DASHBOARD */}
-          {page === "dashboard" && <h1>DASHBOARD</h1>}
+          {page === "dashboard" && (
+            <div className="dashboard-container">
+              <h1>DASHBOARD</h1>
+              <PieChart
+                completed={completedTasks.length}
+                inProgress={tasks.length}
+              ></PieChart>
+            </div>
+          )}
         </div>
       ) : (
-        <div className="login-container">
-          <form className="login">
-            <label>NAME:</label>
-            <div className="username">
-              <input
-                value={user}
-                onChange={handleUserOnChange}
-                type="text"
-                placeholder="Enter your name..."
-              ></input>
-              <button onClick={handleLogIn}>
-                <Login></Login>
-              </button>
-            </div>
-          </form>
+        <div className="welcome-page">
+          <h1 className="welcome">
+            Manage your daily chaos with <span>WORKLY</span>
+          </h1>
+          <div className="login-container">
+            <form className="login">
+              <label>NAME:</label>
+              <div className="username">
+                <input
+                  value={user}
+                  onChange={handleUserOnChange}
+                  type="text"
+                  placeholder="Enter your name..."
+                ></input>
+                <button onClick={handleLogIn}>
+                  <Login></Login>
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
 
