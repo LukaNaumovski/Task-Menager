@@ -12,16 +12,25 @@ import Login from "./svg/Login";
 import Modal from "./Modal";
 import { Pie } from "react-chartjs-2";
 import PieChart from "./Pie";
+import NewModal from "./NewModal";
+import Typewriter from "typewriter-effect";
 
 function App() {
   //STATES
   const [tasks, setTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
 
+  const [dashboardArray, setDashboardArray] = useState("");
+
+  const handleDashboardArray = (arrayName) => {
+    setDashboardArray(arrayName);
+  };
+
   const addCompletedTask = (id) => {
     const completedTask = tasks.find((task) => task.id === id);
 
-    setCompletedTasks([...completedTasks, completedTask]);
+    setCompletedTasks((tasks) => [...tasks, completedTask]);
+    console.log(completedTask);
   };
   const removeCompletedTask = (id) => {
     const newCompletedTasks = completedTasks.filter((task) => task.id !== id);
@@ -45,6 +54,7 @@ function App() {
 
   const [isClicked, setIsClicked] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isNewModalVisible, setIsNewModalVisible] = useState(false);
 
   //CURRENT CLICKED TASK ID
   const [taskId, setTaskId] = useState("");
@@ -54,6 +64,9 @@ function App() {
 
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible);
+  };
+  const toggleNewModal = () => {
+    setIsNewModalVisible(!isNewModalVisible);
   };
 
   const handleLogIn = (e) => {
@@ -125,10 +138,6 @@ function App() {
     },
   };
 
-  useEffect(() => {
-    console.log(tasks);
-  }, [tasks]);
-
   return (
     <div className="App">
       {isLoggedIn ? (
@@ -146,12 +155,13 @@ function App() {
             </div>
             <div className="aside-content">
               <div onClick={handleDashboardClick}>
-                <Dashboard></Dashboard>DASHBOARD
+                <Dashboard></Dashboard>
+                DASHBOARD
               </div>
               <div onClick={handleMyTasksClick}>
                 <Tasks></Tasks>MY TASKS
               </div>
-              <div onClick={handleCreateTaskClick}>
+              <div onClick={toggleNewModal}>
                 <AddTask></AddTask>CREATE A TASK
               </div>
             </div>
@@ -160,7 +170,7 @@ function App() {
           {/* MY TASKS PAGE */}
           {page === "mytasks" && (
             <div className="my-tasks">
-              <h2>MY TASKS</h2>
+              <h1 className="mtt">MY TASKS</h1>
               <motion.div
                 variants={containerVariants}
                 initial="hidden"
@@ -207,19 +217,99 @@ function App() {
 
           {/* DASHBOARD */}
           {page === "dashboard" && (
-            <div className="dashboard-container">
-              <h1>DASHBOARD</h1>
-              <PieChart
-                completed={completedTasks.length}
-                inProgress={tasks.length}
-              ></PieChart>
-            </div>
+            <>
+              <div className="dashboard-container">
+                <h1>DASHBOARD</h1>
+                <PieChart
+                  completed={completedTasks.length}
+                  inProgress={tasks.length}
+                  handleDashboardArray={handleDashboardArray}
+                ></PieChart>
+
+                {/* DASHBOARD ARRAY */}
+                <div className="my-tasks">
+                  <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="show"
+                    className="task-list"
+                  >
+                    <AnimatePresence>
+                      {dashboardArray === "completed"
+                        ? completedTasks.map((task) => {
+                            console.log(completedTasks);
+
+                            if (!task) return null;
+                            return (
+                              <motion.div key={task.id} variants={item}>
+                                <Task
+                                  isChecked={true}
+                                  tasksArray={tasks}
+                                  title={task.title}
+                                  description={task.description}
+                                  date={task.date}
+                                  time={task.time}
+                                  id={task.id}
+                                  onDelete={handleOnDelete}
+                                  onEdit={handleOnEdit}
+                                  isModalVisible={isModalVisible}
+                                  toggleModal={toggleModal}
+                                  handleClickedTaskId={handleClickedTaskId}
+                                  taskId={task.id}
+                                  addCompletedTask={addCompletedTask}
+                                  removeCompletedTask={removeCompletedTask}
+                                  completedTasksArray={completedTasks}
+                                  handleIsChecked={handleIsChecked}
+                                />
+                              </motion.div>
+                            );
+                          })
+                        : dashboardArray === "inprogress"
+                        ? tasks.map((task) => (
+                            <motion.div key={task.id} variants={item}>
+                              <Task
+                                isChecked={task.isChecked}
+                                tasksArray={tasks}
+                                title={task.title}
+                                description={task.description}
+                                date={task.date}
+                                time={task.time}
+                                id={task.id}
+                                onDelete={handleOnDelete}
+                                onEdit={handleOnEdit}
+                                isModalVisible={isModalVisible}
+                                toggleModal={toggleModal}
+                                handleClickedTaskId={handleClickedTaskId}
+                                taskId={task.id}
+                                addCompletedTask={addCompletedTask}
+                                removeCompletedTask={removeCompletedTask}
+                                completedTasksArray={completedTasks}
+                                handleIsChecked={handleIsChecked}
+                              />
+                            </motion.div>
+                          ))
+                        : null}
+                    </AnimatePresence>
+                  </motion.div>
+                </div>
+              </div>
+            </>
           )}
         </div>
       ) : (
         <div className="welcome-page">
           <h1 className="welcome">
-            Manage your daily chaos with <span>WORKLY</span>
+            Manage your daily chaos with{" "}
+            <Typewriter
+              options={{
+                strings: ["WORKLY"],
+                autoStart: true,
+                loop: true,
+                delay: 50, // Speed of typing
+                deleteSpeed: 25, // Speed of deleting
+                pauseFor: 2000, // Delay before typing again
+              }}
+            />
           </h1>
           <div className="login-container">
             <form className="login">
@@ -246,6 +336,12 @@ function App() {
         isVisible={isModalVisible}
         onClose={toggleModal}
       ></Modal>
+      <NewModal
+        isVisible={isNewModalVisible}
+        onClose={toggleNewModal}
+        addTask={handleAddTask}
+        clickFalse={clickFalse}
+      ></NewModal>
     </div>
   );
 }

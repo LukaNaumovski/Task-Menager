@@ -20,19 +20,24 @@
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Soft shadow */
   z-index: 1000; /* Above the overlay */
+  resize: 150%;
+  width: 30%;
 }
 
 /* Modal content */
 .modal-content {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
   align-items: center;
   position: relative;
 }
 
 .modal-content input {
   width: 100%;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid black;
 }
 
 /* Close button */
@@ -43,7 +48,7 @@
 }
 
 .close-btn {
-  background-color: #3498db; /* Customize button color */
+  background-color: #6a9ab0; /* Customize button color */
   color: white;
   border: none;
   padding: 10px 20px;
@@ -52,5 +57,5 @@
 }
 
 .close-btn:hover {
-  background-color: #2980b9; /* Darken button on hover */
+  background-color: #6a9ab0; /* Darken button on hover */
 }

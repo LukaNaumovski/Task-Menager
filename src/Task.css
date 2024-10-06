@@ -1,12 +1,12 @@
 .task {
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   padding: 2rem;
-  border-radius: 2%;
+  border-radius: 7%;
   text-align: center;
   overflow-wrap: break-word;
   display: flex;
   flex-direction: column;
-  background-color: white;
+  background-color: #f7f9f2;
 }
 .task p {
   font-weight: 500;
@@ -20,10 +20,10 @@
 }
 .date div {
   display: flex;
-  align-items: center;
 }
 .date p {
   text-align: center;
+  width: auto;
 }
 .done {
   text-decoration: line-through;
@@ -42,7 +42,7 @@
 }
 
 button {
-  background-color: #3498db; /* Soft blue for the button */
+  background-color: #6a9ab0; /* Soft blue for the button */
   color: white; /* White text for contrast */
   border: none;
   border-radius: 8px; /* Rounded corners */
@@ -55,7 +55,7 @@ button {
 
 /* Hover effect */
 button:hover {
-  background-color: #2980b9; /* Darker blue on hover */
+  background-color: #5f899d; /* Darker blue on hover */
   transform: translateY(-2px); /* Lift effect */
 }
 
@@ -66,8 +66,12 @@ button:focus {
 }
 
 .checkbox {
+  appearance: none; /* Remove default checkbox styling */
   width: 20px;
   height: 20px;
-  border: 1px solid black;
-  border-radius: 100%;
+  border: 0.1px solid rgb(104, 104, 104);
+  border-radius: 50%; /* Make it a perfect circle */
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
 }

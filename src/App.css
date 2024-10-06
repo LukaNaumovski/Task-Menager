@@ -1,23 +1,90 @@
 * {
-  font-family: "Poppins", sans-serif;
-  font-weight: bold;
+  font-family: "Afacad Flux", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
   font-style: normal;
+  font-variation-settings: "slnt" 0;
   /* margin: 0; */
 }
 
 body {
-  background-color: #c3e0ed;
-
-  height: 100vh;
+  background: linear-gradient(135deg, #f8f6e3, #97e7e1);
+  background-repeat: no-repeat; /* Prevent the background from repeating */
+  background-size: cover; /* Ensures the gradient covers the entire view */
+  height: 100%;
+  margin: 0;
 }
 .welcome-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f8f6e3, #97e7e1); /* Subtle gradient */
+  position: relative;
+  overflow: hidden;
+}
+
+.welcome-page::before {
+  content: "";
+  position: absolute;
+  top: -150px;
+  left: -150px;
+  width: 300px;
+  height: 300px;
+  background: #6a9ab0;
+  border-radius: 50%;
+  z-index: 0;
+  animation: float 5s ease-in-out infinite;
+}
+
+.welcome-page::after {
+  content: "";
+  position: absolute;
+  bottom: -120px;
+  right: -120px;
+  width: 200px;
+  height: 200px;
+  background: #6a9ab0;
+  border-radius: 50%;
+  z-index: 0;
+  animation: float 5s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(30px) translateX(30px);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+
+.welcome {
+  text-align: center;
+  color: #333;
+  z-index: 1;
+  font-family: "Poppins", sans-serif;
+  position: relative;
+  padding-top: 4rem;
+}
+
+.welcome span {
+  color: #6a9ab0;
+  font-weight: bolder;
+  font-size: 2.5rem;
+}
+/* .welcome-page {
   height: 100vh;
   display: flex;
   flex-direction: column;
 }
 .welcome {
   text-align: center;
-}
+} */
 .login-container {
   height: auto;
   display: flex;
@@ -57,7 +124,7 @@ body {
 }
 .login button {
   border-radius: 100%;
-  background-color: #3498db;
+  background-color: #6a9ab0;
   color: black;
   padding: 10px 12px;
 }
@@ -66,13 +133,15 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 2rem;
 }
 
 .task-list {
   display: grid;
   grid-template-columns: repeat(
     auto-fill,
-    minmax(400px, 1fr)
+    minmax(300px, 1fr)
   ); /* Adjust minmax value as needed */
   gap: 16px; /* Adjust gap between tasks */
   padding: 16px; /* Optional padding */
@@ -82,6 +151,9 @@ body {
   text-align: left;
   padding-left: 16px;
 }
+.mtt {
+  padding-left: 1rem;
+}
 .layout {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -90,7 +162,7 @@ body {
 aside {
   box-sizing: border-box;
   height: 100vh;
-  background-color: #d4e9f3;
+  background: linear-gradient(-135deg, #f8f6e3, #97e7e1);
   display: flex;
   flex-direction: column;
   gap: 5%;
@@ -98,6 +170,9 @@ aside {
   position: sticky;
   top: 0;
   align-self: start;
+  box-shadow: rgba(149, 157, 165, 0.2) 15px 15px 10px;
+  border-top-right-radius: 10%;
+  border-bottom-right-radius: 10%;
 }
 .aside-content {
   width: 100%;
@@ -115,10 +190,11 @@ aside {
   padding: 0.3rem 0;
   display: flex;
   align-items: center;
-  font-weight: 500;
+  gap: 1rem;
+  font-weight: bold;
 }
 .aside-content div:hover {
-  background-color: #3498db; /* Soft blue for the button */
+  background-color: #6a9ab0; /* Soft blue for the button */
   color: white; /* White text for contrast */
   border: none;
   /* border-radius: 8px;  */
@@ -133,6 +209,7 @@ aside {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: right;
   gap: 1rem;
 }
 .logo {

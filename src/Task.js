@@ -27,9 +27,6 @@ function Task(props) {
       props.removeCompletedTask(props.id);
       props.handleIsChecked(props.id, false);
     }
-
-    console.log("ALL: ", props.tasksArray);
-    console.log("COMPLETED: ", props.completedTasksArray);
   }, [isChecked]);
 
   return (
