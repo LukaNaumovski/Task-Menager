@@ -75,3 +75,15 @@ button:focus {
   display: inline-block;
   position: relative;
 }
+
+@media only screen and (max-width: 768px) {
+  .task {
+    font-size: 20px;
+  }
+  .task h3 {
+    font-weight: bold;
+  }
+  .task p {
+    font-weight: 400;
+  }
+}

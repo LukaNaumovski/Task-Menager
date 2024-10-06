@@ -1,11 +1,20 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Modal.css";
 
-function Modal({ isVisible, onClose, handleOnEdit, taskId }) {
+function Modal({ isVisible, onClose, handleOnEdit, taskId, currentTask }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
+
+  useEffect(() => {
+    if (currentTask) {
+      setTitle(currentTask.title || "");
+      setDescription(currentTask.description || "");
+      setDate(currentTask.date || "");
+      setTime(currentTask.time || "");
+    }
+  }, [currentTask]);
 
   if (!isVisible) return null;
 

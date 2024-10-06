@@ -41,9 +41,11 @@ function NewTask(props) {
   return (
     <div className="new-task">
       {!props.isClicked && (
-        <button className="plus" onClick={props.handleClick}>
-          <AddTask2></AddTask2>
-        </button>
+        <div className="plus-container">
+          <button className="plus" onClick={props.handleClick}>
+            <AddTask2></AddTask2>Create a task
+          </button>
+        </div>
       )}
       {props.isClicked && (
         <form className="form">

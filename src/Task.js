@@ -19,15 +19,18 @@ function Task(props) {
   }
 
   useEffect(() => {
-    if (isChecked) {
-      props.addCompletedTask(props.id);
-      props.handleIsChecked(props.id, true);
-      props.onDelete(props.id);
-    } else {
-      props.removeCompletedTask(props.id);
-      props.handleIsChecked(props.id, false);
+    if (isChecked !== props.isChecked) {
+      // Ensures no unnecessary effect runs
+      if (isChecked) {
+        props.addCompletedTask(props.id);
+        props.handleIsChecked(props.id, true);
+        props.onDelete(props.id);
+      } else {
+        props.removeCompletedTask(props.id);
+        props.handleIsChecked(props.id, false);
+      }
     }
-  }, [isChecked]);
+  }, [isChecked]); // Depend only on isChecked
 
   return (
     <div
@@ -58,12 +61,14 @@ function Task(props) {
       </div>
 
       <div className="footer">
-        <input
-          className="checkbox"
-          type="checkbox"
-          checked={isChecked}
-          onChange={handleCheckboxOnChange}
-        ></input>
+        {!props.type && (
+          <input
+            className="checkbox"
+            type="checkbox"
+            checked={isChecked}
+            onChange={handleCheckboxOnChange}
+          ></input>
+        )}
 
         <motion.div
           className="buttons"
@@ -78,7 +83,6 @@ function Task(props) {
             onClick={() => {
               props.toggleModal();
               props.handleClickedTaskId(props.id);
-              console.log(props.id);
             }}
             className="edit"
           >

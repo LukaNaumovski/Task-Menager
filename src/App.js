@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import NewTask from "./NewTask";
 import Dashboard from "./svg/Dashboard";
@@ -56,10 +56,18 @@ function App() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isNewModalVisible, setIsNewModalVisible] = useState(false);
 
+  const taskListRef = useRef(null);
+
   //CURRENT CLICKED TASK ID
   const [taskId, setTaskId] = useState("");
+  const [currentTask, setCurrentTask] = useState({});
   const handleClickedTaskId = (id) => {
     setTaskId(id);
+
+    const task = tasks.find((task) => task.id === id);
+    console.log(task);
+
+    setCurrentTask(task);
   };
 
   const toggleModal = () => {
@@ -83,10 +91,18 @@ function App() {
 
   function handleMyTasksClick() {
     setPage("mytasks");
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Enables smooth scrolling
+    });
   }
 
   function handleDashboardClick() {
     setPage("dashboard");
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Enables smooth scrolling
+    });
   }
 
   function handleCreateTaskClick() {
@@ -143,8 +159,8 @@ function App() {
       {isLoggedIn ? (
         <div className="layout">
           <motion.aside
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
+            initial={{ x: -100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
             transition={{ type: "spring", stiffness: 540, damping: 20 }}
           >
             <div className="logo">
@@ -156,13 +172,15 @@ function App() {
             <div className="aside-content">
               <div onClick={handleDashboardClick}>
                 <Dashboard></Dashboard>
-                DASHBOARD
+                <span>DASHBOARD</span>
               </div>
               <div onClick={handleMyTasksClick}>
-                <Tasks></Tasks>MY TASKS
+                <Tasks></Tasks>
+                <span>MY TASKS</span>
               </div>
               <div onClick={toggleNewModal}>
-                <AddTask></AddTask>CREATE A TASK
+                <AddTask></AddTask>
+                <span>CREATE A TASK</span>
               </div>
             </div>
           </motion.aside>
@@ -170,7 +188,13 @@ function App() {
           {/* MY TASKS PAGE */}
           {page === "mytasks" && (
             <div className="my-tasks">
-              <h1 className="mtt">MY TASKS</h1>
+              <motion.h1
+                initial={{ x: -100, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                className="mtt"
+              >
+                MY TASKS
+              </motion.h1>
               <motion.div
                 variants={containerVariants}
                 initial="hidden"
@@ -218,16 +242,36 @@ function App() {
           {/* DASHBOARD */}
           {page === "dashboard" && (
             <>
-              <div className="dashboard-container">
-                <h1>DASHBOARD</h1>
-                <PieChart
-                  completed={completedTasks.length}
-                  inProgress={tasks.length}
-                  handleDashboardArray={handleDashboardArray}
-                ></PieChart>
-
-                {/* DASHBOARD ARRAY */}
-                <div className="my-tasks">
+              <div>
+                <div className="dashboard-container">
+                  <motion.h1
+                    initial={{ x: -100, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                  >
+                    DASHBOARD
+                  </motion.h1>
+                  <PieChart
+                    completed={completedTasks.length}
+                    inProgress={tasks.length}
+                    handleDashboardArray={handleDashboardArray}
+                    completedTasks={completedTasks}
+                    tasks={tasks}
+                    taskListRef={taskListRef}
+                  ></PieChart>
+                  <h2>
+                    {dashboardArray === "completed"
+                      ? "COMPLETED TASKS"
+                      : dashboardArray === "inprogress"
+                      ? "IN PROGRESS TASKS"
+                      : null}
+                  </h2>
+                  {/* DASHBOARD ARRAY */}
+                </div>
+                <div
+                  style={{ marginBottom: "3rem" }}
+                  className="my-tasks"
+                  ref={taskListRef}
+                >
                   <motion.div
                     variants={containerVariants}
                     initial="hidden"
@@ -237,12 +281,11 @@ function App() {
                     <AnimatePresence>
                       {dashboardArray === "completed"
                         ? completedTasks.map((task) => {
-                            console.log(completedTasks);
-
                             if (!task) return null;
                             return (
                               <motion.div key={task.id} variants={item}>
                                 <Task
+                                  type={"completed"}
                                   isChecked={true}
                                   tasksArray={tasks}
                                   title={task.title}
@@ -335,6 +378,7 @@ function App() {
         handleOnEdit={handleOnEdit}
         isVisible={isModalVisible}
         onClose={toggleModal}
+        currentTask={currentTask}
       ></Modal>
       <NewModal
         isVisible={isNewModalVisible}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import "./Pie.css";
@@ -7,6 +7,7 @@ import "./Pie.css";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PieChart = (props) => {
+  const [shouldScroll, setShouldScroll] = useState(false);
   const totalTasks = props.completed + props.inProgress;
 
   const data = {
@@ -58,15 +59,31 @@ const PieChart = (props) => {
 
   const handleCompletedClick = () => {
     props.handleDashboardArray("completed");
+
+    setShouldScroll(true);
   };
 
   const handleInProgressClick = () => {
-    // props.handleDashboardArray("inprogress");
+    props.handleDashboardArray("inprogress");
+
+    setShouldScroll(true);
   };
+
+  useEffect(() => {
+    if (shouldScroll && props.taskListRef.current) {
+      // Only scroll if the grid is rendered and shouldScroll is true
+      props.taskListRef.current.scrollIntoView({ behavior: "smooth" });
+      setShouldScroll(false); // Reset after scrolling
+    }
+  }, [shouldScroll]);
 
   return (
     <div className="pie">
-      <Pie data={data} options={options} />
+      {props.tasks.length > 0 || props.completedTasks.length > 0 ? (
+        <Pie data={data} options={options} />
+      ) : (
+        <p>No tasks yet!</p>
+      )}
     </div>
   );
 };
