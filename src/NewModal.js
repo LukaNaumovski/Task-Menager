@@ -70,6 +70,10 @@ function NewModal({
     onClose();
 
     clickFalse();
+    setTitle("");
+    setDate("");
+    setDescription("");
+    setTime("");
   };
 
   return (

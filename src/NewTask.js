@@ -36,6 +36,10 @@ function NewTask(props) {
       isChecked: false,
     });
     props.clickFalse();
+    setTitle("");
+    setDescription("");
+    setDate("");
+    setTime("");
   }
 
   return (
