@@ -34,25 +34,6 @@ function NewModal({
     setTime(e.target.value);
   };
 
-  const onEdit = () => {
-    const newTask = {
-      id: taskId,
-      title,
-      description,
-      date,
-      time,
-    };
-
-    handleOnEdit(taskId, newTask);
-
-    setDate("");
-    setDescription("");
-    setTitle("");
-    setTime("");
-
-    onClose();
-  };
-
   const onAddTask = () => {
     if (!title || !description || !date || !time) return;
 

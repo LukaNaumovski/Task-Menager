@@ -8,7 +8,6 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const PieChart = (props) => {
   const [shouldScroll, setShouldScroll] = useState(false);
-  const totalTasks = props.completed + props.inProgress;
 
   const data = {
     labels: ["Completed Tasks", "In Progress Tasks"],
@@ -75,7 +74,7 @@ const PieChart = (props) => {
       props.taskListRef.current.scrollIntoView({ behavior: "smooth" });
       setShouldScroll(false); // Reset after scrolling
     }
-  }, [shouldScroll]);
+  }, [shouldScroll, props.taskListRef]);
 
   return (
     <div className="pie">

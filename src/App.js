@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
 import NewTask from "./NewTask";
 import Dashboard from "./svg/Dashboard";
@@ -10,7 +10,6 @@ import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 import Login from "./svg/Login";
 import Modal from "./Modal";
-import { Pie } from "react-chartjs-2";
 import PieChart from "./Pie";
 import NewModal from "./NewModal";
 import Typewriter from "typewriter-effect";
@@ -103,11 +102,6 @@ function App() {
       top: 0,
       behavior: "smooth", // Enables smooth scrolling
     });
-  }
-
-  function handleCreateTaskClick() {
-    setPage("mytasks");
-    setIsClicked(true);
   }
 
   //
