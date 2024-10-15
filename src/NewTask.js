@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../src/NewTask.css";
-import Task from "./Task";
+
 
 import { v4 as uuidv4 } from "uuid";
 import AddTask2 from "./svg/AddTask2";
